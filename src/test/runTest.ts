@@ -8,7 +8,7 @@ async function main()
     // npm run test --instanceName=Name --username=User --password=pass
     console.log(process.env.npm_config_instanceName);
     console.log(process.env.npm_config_username);
-    console.log(process.env.npm_config_psw);
+    console.log(process.env.npm_config_password);
 
     const testWorkspace = fs.mkdtempSync(path.resolve(__dirname, os.tmpdir(), "testRun-"));
     console.log("workspace: " + testWorkspace);
@@ -22,7 +22,7 @@ async function main()
         // Passed to --extensionTestsPath
         const testRunnerPath = path.resolve(__dirname, './suite/');
 
-        if (!process.env.npm_config_instanceName || !process.env.npm_config_username || !process.env.npm_config_psw)
+        if (!process.env.npm_config_instanceName || !process.env.npm_config_username || !process.env.npm_config_password)
         {
             throw new Error("Missing parameter: npm run test --instanceName=Name --username=User --password=password");
         }
@@ -33,7 +33,7 @@ async function main()
             extensionTestsEnv: {
                 instanceName: process.env.npm_config_instanceName,
                 userName: process.env.npm_config_username,
-                password: process.env.npm_config_psw,
+                password: process.env.npm_config_password,
                 // workspaceName: path.basename(testWorkspace)
             },
             launchArgs: [testWorkspace]
