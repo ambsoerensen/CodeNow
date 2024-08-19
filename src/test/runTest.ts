@@ -6,9 +6,9 @@ import * as os from 'os';
 async function main()
 {
     // npm run test --instanceName=Name --username=User --password=pass
-    // console.log(process.env.npm_config_instanceName);
-    // console.log(process.env.npm_config_username);
-    // console.log(process.env.npm_config_password);
+    console.log(process.env.npm_config_instanceName);
+    console.log(process.env.npm_config_username);
+    console.log(process.env.npm_config_password);
 
     const testWorkspace = fs.mkdtempSync(path.resolve(__dirname, os.tmpdir(), "testRun-"));
     console.log("workspace: " + testWorkspace);
@@ -24,7 +24,7 @@ async function main()
 
         if (!process.env.npm_config_instanceName || !process.env.npm_config_username || !process.env.npm_config_password)
         {
-            throw new Error("Missing parameter: npm run test --instanceName=Name --username=User --password=pass");
+            throw new Error("Missing parameter: npm run test --instanceName=Name --username=User --password=password");
         }
 
         let options: TestOptions = {

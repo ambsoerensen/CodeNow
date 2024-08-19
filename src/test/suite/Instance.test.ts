@@ -31,7 +31,7 @@ suite("CodeNow Integration", async function ()
 
     test("Extension can connect", async () =>
     {
-        instance = await commands.executeCommand<Instance>("cn.connect", { instanceName: process.env.npm_config_instanceName, userName: process.env.npm_config_userName, password: process.env.npm_config_password });
+        instance = await commands.executeCommand<Instance>("cn.connect", { instanceName: process.env.npm_config_instanceName, userName: process.env.npm_config_userName, password: process.env.npm_config_pass });
         if (instance)
         {
             assert.equal((instance.IsInitialized()), true);
