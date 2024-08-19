@@ -28,5 +28,5 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm install
-    - run: npm test --instanceName=${INSTANCENAME} --username=${USER_NAME}  --password=${PASSWORD}
+    - run: npm test --instanceName=${{vars.INSTANCENAME}} --username=${{vars.USER_NAME}}  --password=${{ secrets.PASSWORD }}
 
