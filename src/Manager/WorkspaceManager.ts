@@ -89,7 +89,7 @@ export class WorkspaceManager
                 window.showWarningMessage(msg);
             }
         }
-        catch (e)
+        catch (e: any)
         {
             console.error(e.message);
         }
@@ -307,7 +307,7 @@ export class WorkspaceManager
      */
     public ConfigureWorkspace(context: ExtensionContext)
     {
-        if (this.HasWorkspace)
+        if (this.HasWorkspace())
         {
             let path = this.GetPathWorkspace();
             if (path)
@@ -359,7 +359,7 @@ export class WorkspaceManager
 
     private GetPathWorkspace(): WorkspaceFolder | undefined
     {
-        if (this.HasWorkspace)
+        if (this.HasWorkspace())
         {
             if (workspace.workspaceFolders !== undefined)
             {
@@ -377,7 +377,7 @@ export class WorkspaceManager
             let content = fileSystem.readFileSync(path, "utf8");
             return content;
         }
-        catch (e)
+        catch (e: any)
         {
             console.error(e.message);
         }

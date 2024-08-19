@@ -23,7 +23,7 @@ export function activate(context: vscode.ExtensionContext)
 
     mixpanel.track("cn.extension.activated");
 
-    if (wsm.HasInstanceInState)
+    if (wsm.HasInstanceInState())
     {
         instance = new ServiceNow.Instance(config, mixpanel);
 
@@ -109,7 +109,7 @@ export function activate(context: vscode.ExtensionContext)
                 });
                 return instance;
             }
-        } catch (error)
+        } catch (error: any)
         {
             if (error.code === "ENOTFOUND")
             {
@@ -122,9 +122,8 @@ export function activate(context: vscode.ExtensionContext)
             mixpanel.track("cn.extension.command.connect.fail", {
                 error: error.message
             });
-        }
+        };
     });
-
     let openInPlatformRecord = vscode.commands.registerCommand("cn.openInPlatformRecord", (uri) =>
     {
         if (instance.IsInitialized())
@@ -468,7 +467,7 @@ export function activate(context: vscode.ExtensionContext)
                                     //@ts-ignore index any is a string.
                                     sys_class_name: recordtype
                                 });
-                            } catch (error)
+                            } catch (error: any)
                             {
                                 vscode.window.showErrorMessage(error);
                                 mixpanel.track('cn.extension.command.createRecord.fail', {
@@ -633,18 +632,20 @@ export function activate(context: vscode.ExtensionContext)
                 vscode.window.withProgress<number>({
                     location: vscode.ProgressLocation.Notification,
                     title: "Code Search"
-                }, async (progress) =>
-                {
-                    progress.report({ message: `Searching for: ${term}` });
+                },
+                    //@ts-ignore
+                    async function (progress)
+                    {
+                        progress.report({ message: `Searching for: ${term}` });
 
-                    //@ts-ignore term already null checked
-                    var res = await instance.search(term);
+                        //@ts-ignore term already null checked
+                        var res = await instance.search(term);
 
-                    mixpanel.track('cn.extension.command.codeSearch.success');
+                        mixpanel.track('cn.extension.command.codeSearch.success');
 
-                    //@ts-ignore term already null checked
-                    return searchProvider.addSearch(res, term);
-                });
+                        //@ts-ignore term already null checked
+                        return searchProvider.addSearch(res, term);
+                    });
             }
         }
         else
@@ -759,7 +760,7 @@ export function activate(context: vscode.ExtensionContext)
                         }
                     }
                 }
-            } catch (error)
+            } catch (error: any)
             {
                 console.error(error);
                 mixpanel.track('cn.extension.command.createUpdateSet.fail', {
@@ -807,7 +808,7 @@ export function activate(context: vscode.ExtensionContext)
                                 vscode.window.showWarningMessage(`Newer Version of record found on instance`);
                             }
                         }
-                        catch (error)
+                        catch (error: any)
                         {
                             vscode.window.showErrorMessage(`Save Failed: ${error}`);
                             mixpanel.track('cn.extension.event.onDidSaveTextDocument.fail', {
@@ -895,9 +896,4 @@ export function activate(context: vscode.ExtensionContext)
     context.subscriptions.push(rebuildCache);
     context.subscriptions.push(saveRecord);
     context.subscriptions.push(updateRecord);
-}
-// this method is called when your extension is deactivated
-export function deactivate(context: vscode.ExtensionContext)
-{
-    mixpanel.track('cn.extension.deactivate');
 }

@@ -1,6 +1,6 @@
 import * as path from 'path';
 import * as fs from 'fs';
-import { runTests } from 'vscode-test';
+import { runTests, TestOptions } from '@vscode/test-electron';
 import * as os from 'os';
 
 async function main()
@@ -27,18 +27,20 @@ async function main()
             throw new Error("Missing parameter: npm run test --instanceName=Name --username=User --password=pass");
         }
 
-        //Download VS Code, unzip it and run the integration test
-        await runTests({
-            extensionPath,
-            testRunnerPath,
-            testWorkspace,
-            testRunnerEnv: {
+        let options: TestOptions = {
+            extensionDevelopmentPath: extensionPath,
+            extensionTestsPath: testRunnerPath,
+            extensionTestsEnv: {
                 instanceName: process.env.npm_config_instanceName,
                 userName: process.env.npm_config_username,
                 password: process.env.npm_config_password,
-                workspaceName: path.basename(testWorkspace)
-            }
-        });
+                // workspaceName: path.basename(testWorkspace)
+            },
+            launchArgs: [testWorkspace]
+        }
+
+        //Download VS Code, unzip it and run the integration test
+        await runTests(options);
     } catch (err)
     {
         console.log(err);

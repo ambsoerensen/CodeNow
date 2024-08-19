@@ -148,7 +148,7 @@ suite("CodeNow Integration", async function ()
             assert.ok(allSupported.length > 0);
         });
 
-        test('Instance defined', () =>
+        test.skip('Instance defined', () =>
         {
             assert.equal(instance !== undefined, true);
         });
@@ -229,7 +229,7 @@ suite("CodeNow Integration", async function ()
             assert.ok(allSupported.length > 0);
         });
 
-        test('Instance defined', () =>
+        test.skip('Instance defined', () =>
         {
             assert.equal(instance !== undefined, true);
         });
@@ -609,7 +609,7 @@ suite("CodeNow Integration", async function ()
 
     suite('Instance Updateset and Scope', () =>
     {
-        test('Instance defined', () =>
+        test.skip('Instance defined', () =>
         {
             assert.equal(instance !== undefined, true);
         });

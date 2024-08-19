@@ -15,14 +15,14 @@ export class SearchLineMatch extends TreeItem implements ICodeSearchLineMatch
         this.escaped = l.context.trim();
     }
 
-    public get description(): string | boolean
-    {
-        return this.context;
-    }
+    // public get description(): string | boolean
+    // {
+    //     return this.context;
+    // }
 
 
-    public get tooltip(): string
-    {
-        return this.context;
-    }
+    // public get tooltip(): string
+    // {
+    //     return this.context;
+    // }
 }
