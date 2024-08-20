@@ -53,6 +53,7 @@ jobs:
   Test:
     runs-on: windows-latest
     environment: dev194725
+    needs: ["CodeQuality"]
     steps:
     - uses: actions/checkout@v4
     - name: Use Node.js 20.x
