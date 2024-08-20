@@ -52,7 +52,7 @@ jobs:
           # Github Context
           context-github: ${{ toJSON(github) }}
           # Display Name of the Job
-          job-name: CodeQuality
+          job-name: CodeNow Deployment
           # Sonar Host URL
           sonar-host-url: https://sonarcloud.io/
           # Sonar Project Key
