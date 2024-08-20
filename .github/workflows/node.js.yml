@@ -52,11 +52,11 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm test --instance="${{vars.INSTANCENAME}}" --user="${{vars.USER_NAME}}"  --secret="${{ secrets.MYPS }}"
-      
-
+ 
   Deploy:
     name: Deploy CodeNow
     runs-on: windows-latest
     environment: dev194725
+    needs: ["Test","CodeQuality"]
     steps:
       - run: echo "Deployment successfull"
