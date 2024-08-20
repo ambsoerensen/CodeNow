@@ -20,7 +20,7 @@ jobs:
         uses: SonarSource/sonarqube-scan-action@v2.3.0
         with:
           # Additional arguments to the sonar-scanner
-          args: -Dsonar.projectKey=ambsoerensen_CodeNow -d sonar.organization=ambsoerensen
+          args: -Dsonar.projectKey=ambsoerensen_CodeNow -Dsonar.organization=ambsoerensen
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
