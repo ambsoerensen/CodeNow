@@ -14,16 +14,15 @@ jobs:
       runs-on: ubuntu-latest
       environment: dev194725
       steps:
-      - name: SonarCloud Scan
-        # You may pin to the exact commit or the version.
-        # uses: SonarSource/sonarcloud-github-action@eb211723266fe8e83102bac7361f0a05c3ac1d1b
-        uses: SonarSource/sonarcloud-github-action@v3.0.0
-        #with:
-          # Additional arguments to the sonarcloud scanner
-          #args: # optional
-          # Set the sonar.projectBaseDir analysis property
-          #projectBaseDir: # optional, default is .
-        
+      - name: Official SonarQube Scan
+      # You may pin to the exact commit or the version.
+      # uses: SonarSource/sonarqube-scan-action@aecaf43ae57e412bd97d70ef9ce6076e672fe0a9
+        uses: SonarSource/sonarqube-scan-action@v2.3.0
+      #with:
+        # Additional arguments to the sonar-scanner
+       # args: # optional
+        # Set the sonar.projectBaseDir analysis property
+        #projectBaseDir: # optional, default is .
       - name: ServiceNow DevOps Sonar
       # You may pin to the exact commit or the version.
       # uses: ServiceNow/servicenow-devops-sonar@3cdbf4fd4d7d5b677f150702a20a3613fe9962af
