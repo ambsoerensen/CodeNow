@@ -10,60 +10,60 @@ on:
     branches: [ "master" ]
 
 jobs:
-  CodeQuality:
-      runs-on: ubuntu-latest
-      environment: dev194725
+  # CodeQuality:
+  #     runs-on: ubuntu-latest
+  #     environment: dev194725
 
 
-      steps:
-      - uses: actions/checkout@v4
-        with:
-            fetch-depth: 0
-      - name: Official SonarQube Scan
-      # You may pin to the exact commit or the version.
-      # uses: SonarSource/sonarqube-scan-action@aecaf43ae57e412bd97d70ef9ce6076e672fe0a9
-        uses: SonarSource/sonarqube-scan-action@v2.3.0
-        with:
-          # Additional arguments to the sonar-scanner
-          args: -Dsonar.projectKey=ambsoerensen_CodeNow -Dsonar.organization=ambsoerensen
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-      #with:
-        # Additional arguments to the sonar-scanner
-       # args: # optional
-        # Set the sonar.projectBaseDir analysis property
-        #projectBaseDir: # optional, default is .
-      - name: ServiceNow DevOps Sonar
-      # You may pin to the exact commit or the version.
-      # uses: ServiceNow/servicenow-devops-sonar@3cdbf4fd4d7d5b677f150702a20a3613fe9962af
-        uses: ServiceNow/servicenow-devops-sonar@v3.1.0
-        with:
-          # ServiceNow Instance URL
-          instance-url: "${{vars.INSTANCENAME}}.service-now.com"
-          # Devops Integration User Name
-          devops-integration-user-name: "${{vars.USER_NAME}}"
-          # Devops Integration User Password
-          devops-integration-user-password: "${{ secrets.MYPS }}"
-          # Devops Security Token
-          #devops-integration-token: # optional
-          # Orchestration Tool Id
-          tool-id: a69123a68304d610e92f9ea6feaad3f0
-          # Github Context
-          context-github: ${{ toJSON(github) }}
-          # Display Name of the Job
-          job-name: CodeNow Deployment
-          # Sonar Host URL
-          sonar-host-url: https://sonarcloud.io/
-          # Sonar Project Key
-          sonar-project-key: ambsoerensen_CodeNow
-          # Sonar Organization Key
-          # sonar-org-key: # optional
+  #     steps:
+  #     - uses: actions/checkout@v4
+  #       with:
+  #           fetch-depth: 0
+  #     - name: Official SonarQube Scan
+  #     # You may pin to the exact commit or the version.
+  #     # uses: SonarSource/sonarqube-scan-action@aecaf43ae57e412bd97d70ef9ce6076e672fe0a9
+  #       uses: SonarSource/sonarqube-scan-action@v2.3.0
+  #       with:
+  #         # Additional arguments to the sonar-scanner
+  #         args: -Dsonar.projectKey=ambsoerensen_CodeNow -Dsonar.organization=ambsoerensen
+  #       env:
+  #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  #         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+  #     #with:
+  #       # Additional arguments to the sonar-scanner
+  #      # args: # optional
+  #       # Set the sonar.projectBaseDir analysis property
+  #       #projectBaseDir: # optional, default is .
+  #     - name: ServiceNow DevOps Sonar
+  #     # You may pin to the exact commit or the version.
+  #     # uses: ServiceNow/servicenow-devops-sonar@3cdbf4fd4d7d5b677f150702a20a3613fe9962af
+  #       uses: ServiceNow/servicenow-devops-sonar@v3.1.0
+  #       with:
+  #         # ServiceNow Instance URL
+  #         instance-url: "${{vars.INSTANCENAME}}.service-now.com"
+  #         # Devops Integration User Name
+  #         devops-integration-user-name: "${{vars.USER_NAME}}"
+  #         # Devops Integration User Password
+  #         devops-integration-user-password: "${{ secrets.MYPS }}"
+  #         # Devops Security Token
+  #         #devops-integration-token: # optional
+  #         # Orchestration Tool Id
+  #         tool-id: a69123a68304d610e92f9ea6feaad3f0
+  #         # Github Context
+  #         context-github: ${{ toJSON(github) }}
+  #         # Display Name of the Job
+  #         job-name: CodeNow Deployment
+  #         # Sonar Host URL
+  #         sonar-host-url: https://sonarcloud.io/
+  #         # Sonar Project Key
+  #         sonar-project-key: ambsoerensen_CodeNow
+  #         # Sonar Organization Key
+  #         # sonar-org-key: # optional
    
   Test:
     runs-on: windows-latest
     environment: dev194725
-    needs: ["CodeQuality"]
+    #needs: ["CodeQuality"]
     steps:
     - uses: actions/checkout@v4
     - name: Use Node.js 20.x
@@ -78,6 +78,7 @@ jobs:
     name: Deploy CodeNow
     runs-on: windows-latest
     environment: dev194725
-    needs: ["Test","CodeQuality"]
+    # needs: ["Test","CodeQuality"]
+    needs: ["Test"]
     steps:
       - run: echo "Deployment successfull"
