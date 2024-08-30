@@ -109,11 +109,11 @@ jobs:
         uses: ServiceNow/servicenow-devops-change@v4.0.0
         with:
           # ServiceNow Instance URL
-          instance-url: ${{vars.INSTANCENAME}}.service-now.com
+          instance-url: "${{vars.INSTANCENAME}}.service-now.com"
           # Devops Integration User Name
-          devops-integration-user-name: ${{vars.USER_NAME}}
+          devops-integration-user-name: "${{vars.USER_NAME}}"
           # Devops Integration User Password
-          devops-integration-user-password: ${{secrets.MYPS}}
+          devops-integration-user-password: "${{secrets.MYPS}}"
           # Devops Integration Token
           #devops-integration-token: # optional
           # Orchestration Tool Id
