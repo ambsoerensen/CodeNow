@@ -97,13 +97,13 @@ jobs:
     #     # GitHub Custom Action
     #     test-type: XUnit
   Deploy:
-    name: Deploy CodeNow
+    name: ServiceNow DevOps Change
     runs-on: ubuntu-latest
     environment: dev194725
     # needs: ["Test","CodeQuality"]
     needs: ["Test"]
     steps:
-      - name: ServiceNow DevOps Change Automation
+      - name: ServiceNow DevOps Change
       # You may pin to the exact commit or the version.
       # uses: ServiceNow/servicenow-devops-change@373e092812580f05105089c20129e6efe347c8e5
         uses: ServiceNow/servicenow-devops-change@v4.0.0
