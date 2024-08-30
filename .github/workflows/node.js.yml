@@ -98,7 +98,7 @@ jobs:
     #     test-type: XUnit
   Deploy:
     name: Deploy CodeNow
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     environment: dev194725
     # needs: ["Test","CodeQuality"]
     needs: ["Test"]
