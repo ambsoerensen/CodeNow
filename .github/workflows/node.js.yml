@@ -66,19 +66,17 @@ jobs:
     #needs: ["CodeQuality"]
     steps:
     - uses: actions/checkout@v4
-    - name: Run Tests
+    - name: Use Node.js 20.x
       uses: actions/setup-node@v4
       with:
         node-version: 20.x
         cache: 'npm'
     - run: npm ci
     - run: npm test --instance="${{vars.INSTANCENAME}}" --user="${{vars.USER_NAME}}"  --secret="${{ secrets.MYPS }}"
-    
-    
+    - name: ServiceNow DevOps Unit Test Results
     # You may pin to the exact commit or the version.
     # uses: ServiceNow/servicenow-devops-test-report@ed89e7474df937fa41dbb1c387e5c54cd075fdcf
     - uses: ServiceNow/servicenow-devops-test-report@v3.1.0
-      name: Upload test results
       with:
         # Devops Integration User Name
         devops-integration-user-name: ${{vars.USER_NAME}}
@@ -89,7 +87,7 @@ jobs:
         # ServiceNow Instance Name
         instance-url: ${{vars.INSTANCENAME}}.service-now.com
         # Orchestration Tool Id
-        tool-id: a69123a68304d610e92f9ea6feaad3f0
+        tool-id: 3560923583581a50e92f9ea6feaad355
         # Job Name
         job-name: Test
         # Github Context
@@ -105,4 +103,37 @@ jobs:
     # needs: ["Test","CodeQuality"]
     needs: ["Test"]
     steps:
-      - run: echo "Deployment successfull"
+      - name: ServiceNow DevOps Change Automation
+      # You may pin to the exact commit or the version.
+      # uses: ServiceNow/servicenow-devops-change@373e092812580f05105089c20129e6efe347c8e5
+        uses: ServiceNow/servicenow-devops-change@v4.0.0
+        with:
+          # ServiceNow Instance URL
+          instance-url: ${{vars.INSTANCENAME}}.service-now.com
+          # Devops Integration User Name
+          devops-integration-user-name: ${{vars.USER_NAME}}
+          # Devops Integration User Password
+          devops-integration-user-password: ${{secrets.MYPS}}
+          # Devops Integration Token
+          #devops-integration-token: # optional
+          # Orchestration Tool Id
+          tool-id: 3560923583581a50e92f9ea6feaad355
+          # Display Name of the Job
+          job-name: Change
+          # Github Context
+          context-github: ${{ toJSON(github) }}
+          # The max. time in seconds to wait until the action should fail.
+          #timeout: # optional, default is 3600
+          # The time in seconds to wait between trying the API.
+          #interval: # optional, default is 100
+          # The customized inputs to create change with the requested details.
+          change-request: 
+          # The max. time in seconds to wait until change created.
+          #changeCreationTimeOut: # optional, default is 3600
+          # This value will be used to resume or abort the pipeline if the change is not created within the mentioned time period in changeCreationTimeOut. 
+          #abortOnChangeCreationFailure: # optional, default is true
+          # This value will be used to resume or abort the pipeline after a timeout has occurred in case a change step is still in a pending state.
+          #abortOnChangeStepTimeout: # optional, default is true
+          # The customized inputs to process deployment gate job related change.
+          #deployment-gate: # optional
+            
