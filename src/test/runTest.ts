@@ -35,8 +35,9 @@ async function main()
                 userName: process.env.npm_config_user,
                 password: process.env.npm_config_secret,
                 // workspaceName: path.basename(testWorkspace)
+
             },
-            launchArgs: [testWorkspace]
+            launchArgs: [testWorkspace, "--reporter xunit", "--reporter-option output=testResults.xml"]
         }
 
         //Download VS Code, unzip it and run the integration test
