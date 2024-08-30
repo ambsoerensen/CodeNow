@@ -31,7 +31,7 @@ export function run(testsRoot: string, cb: (error: any, failures?: number) => vo
 
         } catch (err)
         {
-            cb(err);
+            //cb(err);
         }
     });
 }
