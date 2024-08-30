@@ -6,9 +6,9 @@ import * as os from 'os';
 async function main()
 {
     // npm run test --instanceName=Name --username=User --password=pass
-    console.log(process.env.npm_config_instance);
-    console.log(process.env.npm_config_user);
-    console.log(process.env.npm_config_secret);
+    // console.log(process.env.npm_config_instance);
+    // console.log(process.env.npm_config_user);
+    // console.log(process.env.npm_config_secret);
 
     const testWorkspace = fs.mkdtempSync(path.resolve(__dirname, os.tmpdir(), "testRun-"));
     try
