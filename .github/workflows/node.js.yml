@@ -73,7 +73,29 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm test --instance="${{vars.INSTANCENAME}}" --user="${{vars.USER_NAME}}"  --secret="${{ secrets.MYPS }}"
- 
+    - name: ServiceNow DevOps Unit Test Results
+    # You may pin to the exact commit or the version.
+    # uses: ServiceNow/servicenow-devops-test-report@ed89e7474df937fa41dbb1c387e5c54cd075fdcf
+    - uses: ServiceNow/servicenow-devops-test-report@v3.1.0
+      with:
+        # Devops Integration User Name
+        devops-integration-user-name: ${{vars.USER_NAME}}
+        # Devops Integration User Password
+        devops-integration-user-password: ${{secrets.MYPS }}
+        # Devops Security Token
+        #devops-integration-token: # optional
+        # ServiceNow Instance Name
+        instance-url: ${{vars.INSTANCENAME}}.service-now.com
+        # Orchestration Tool Id
+        tool-id: a69123a68304d610e92f9ea6feaad3f0
+        # Job Name
+        job-name: Test
+        # Github Context
+        context-github: ${{ toJSON(github) }}
+        # JUnit xml report file name with path
+        xml-report-filename: testResults.xml
+        # GitHub Custom Action
+        test-type: XUnit
   Deploy:
     name: Deploy CodeNow
     runs-on: windows-latest
