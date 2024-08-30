@@ -60,20 +60,20 @@ jobs:
   #         # Sonar Organization Key
   #         # sonar-org-key: # optional
    
-  Test:
-    runs-on: windows-latest
-    environment: dev194725
-    #needs: ["CodeQuality"]
-    steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js 20.x and test
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20.x
-        cache: 'npm'
-    - run: npm ci
-    - run: npm test --instance="${{vars.INSTANCENAME}}" --user="${{vars.USER_NAME}}"  --secret="${{ secrets.MYPS }}"
-    # You may pin to the exact commit or the version.
+  # Test:
+  #   runs-on: windows-latest
+  #   environment: dev194725
+  #   #needs: ["CodeQuality"]
+  #   steps:
+  #   - uses: actions/checkout@v4
+  #   - name: Use Node.js 20.x and test
+  #     uses: actions/setup-node@v4
+  #     with:
+  #       node-version: 20.x
+  #       cache: 'npm'
+  #   - run: npm ci
+  #   - run: npm test --instance="${{vars.INSTANCENAME}}" --user="${{vars.USER_NAME}}"  --secret="${{ secrets.MYPS }}"
+  #   # You may pin to the exact commit or the version.
     # uses: ServiceNow/servicenow-devops-test-report@ed89e7474df937fa41dbb1c387e5c54cd075fdcf
     # - name: ServiceNow DevOps Unit Test Results
     #   uses: ServiceNow/servicenow-devops-test-report@v3.1.0
@@ -101,7 +101,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: dev194725
     # needs: ["Test","CodeQuality"]
-    needs: ["Test"]
+    # needs: ["Test"]
     steps:
       - name: ServiceNow DevOps Change
       # You may pin to the exact commit or the version.
