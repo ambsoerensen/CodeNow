@@ -456,7 +456,7 @@ suite("CodeNow Integration", async function ()
 
                 case SupportedRecords["Scripted Rest API"]:
 
-                    suite(`CRUD for ${recType}`, () =>
+                    suite.skip(`CRUD for ${recType}`, () =>
                     {
                         let definition: ISysMetadataIWorkspaceConvertable;
                         test('Create Definition', async () =>

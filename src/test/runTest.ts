@@ -11,7 +11,6 @@ async function main()
     console.log(process.env.npm_config_secret);
 
     const testWorkspace = fs.mkdtempSync(path.resolve(__dirname, os.tmpdir(), "testRun-"));
-    console.log("workspace: " + testWorkspace);
     try
     {
         // The folder containing the Extension Manifest package.json
@@ -37,11 +36,13 @@ async function main()
                 // workspaceName: path.basename(testWorkspace)
 
             },
-            launchArgs: [testWorkspace, "--reporter xunit", "--reporter-option output=testResults.xml"]
+            launchArgs: [testWorkspace]
         }
 
         //Download VS Code, unzip it and run the integration test
         await runTests(options);
+        console.log("workspace: " + testWorkspace);
+
     } catch (err)
     {
         console.log(err);

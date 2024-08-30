@@ -4,11 +4,14 @@ import * as glob from 'glob';
 
 export function run(testsRoot: string, cb: (error: any, failures?: number) => void): void
 {
+    // var reporter = new Mocha.reporters.XUnit()
     // Create the mocha test
     const mocha = new Mocha({
         ui: 'tdd',
+        reporter: 'xunit',
+        reporterOptions: `output=${testsRoot}/result.xml`
     });
-    mocha.useColors(true);
+
 
     glob('**/**.test.js', { cwd: testsRoot }, (err, files) =>
     {
@@ -28,10 +31,9 @@ export function run(testsRoot: string, cb: (error: any, failures?: number) => vo
                 {
                     cb(null, failures);
                 });
-
         } catch (err)
         {
-            //cb(err);
+            cb(err);
         }
     });
 }
