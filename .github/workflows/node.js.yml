@@ -66,36 +66,36 @@ jobs:
     #needs: ["CodeQuality"]
     steps:
     - uses: actions/checkout@v4
-    - name: Use Node.js 20.x
+    - name: Use Node.js 20.x and test
       uses: actions/setup-node@v4
       with:
         node-version: 20.x
         cache: 'npm'
     - run: npm ci
     - run: npm test --instance="${{vars.INSTANCENAME}}" --user="${{vars.USER_NAME}}"  --secret="${{ secrets.MYPS }}"
-      name: ServiceNow DevOps Unit Test Results
     # You may pin to the exact commit or the version.
     # uses: ServiceNow/servicenow-devops-test-report@ed89e7474df937fa41dbb1c387e5c54cd075fdcf
-    - uses: ServiceNow/servicenow-devops-test-report@v3.1.0
-      with:
-        # Devops Integration User Name
-        devops-integration-user-name: ${{vars.USER_NAME}}
-        # Devops Integration User Password
-        devops-integration-user-password: ${{secrets.MYPS }}
-        # Devops Security Token
-        #devops-integration-token: # optional
-        # ServiceNow Instance Name
-        instance-url: ${{vars.INSTANCENAME}}.service-now.com
-        # Orchestration Tool Id
-        tool-id: 3560923583581a50e92f9ea6feaad355
-        # Job Name
-        job-name: Test
-        # Github Context
-        context-github: ${{ toJSON(github) }}
-        # JUnit xml report file name with path
-        xml-report-filename: testResults.xml
-        # GitHub Custom Action
-        test-type: XUnit
+    # - name: ServiceNow DevOps Unit Test Results
+    #   uses: ServiceNow/servicenow-devops-test-report@v3.1.0
+    #   with:
+    #     # Devops Integration User Name
+    #     devops-integration-user-name: ${{vars.USER_NAME}}
+    #     # Devops Integration User Password
+    #     devops-integration-user-password: ${{secrets.MYPS }}
+    #     # Devops Security Token
+    #     #devops-integration-token: # optional
+    #     # ServiceNow Instance Name
+    #     instance-url: ${{vars.INSTANCENAME}}.service-now.com
+    #     # Orchestration Tool Id
+    #     tool-id: 3560923583581a50e92f9ea6feaad355
+    #     # Job Name
+    #     job-name: Test
+    #     # Github Context
+    #     context-github: ${{ toJSON(github) }}
+    #     # JUnit xml report file name with path
+    #     xml-report-filename: testResults.xml
+    #     # GitHub Custom Action
+    #     test-type: XUnit
   Deploy:
     name: Deploy CodeNow
     runs-on: windows-latest
@@ -127,7 +127,7 @@ jobs:
           # The time in seconds to wait between trying the API.
           #interval: # optional, default is 100
           # The customized inputs to create change with the requested details.
-          change-request: 
+          change-request: test change
           # The max. time in seconds to wait until change created.
           #changeCreationTimeOut: # optional, default is 3600
           # This value will be used to resume or abort the pipeline if the change is not created within the mentioned time period in changeCreationTimeOut. 
@@ -136,4 +136,5 @@ jobs:
           #abortOnChangeStepTimeout: # optional, default is true
           # The customized inputs to process deployment gate job related change.
           #deployment-gate: # optional
-            
+      - name: Deploy
+        run: echo "Deployment successfull"
