@@ -27,5 +27,9 @@ describe("CodeNow Integration", async function ()
     {
         let i = 1 + 1
         assert.equal(i, 2)
+    }); it("1+2 = 3", async () =>
+    {
+        let i = 1 + 1
+        assert.equal(i, 2)
     });
 })
