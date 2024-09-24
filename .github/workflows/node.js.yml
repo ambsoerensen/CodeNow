@@ -93,7 +93,7 @@ jobs:
         # Github Context
         context-github: ${{ toJSON(github) }}
         # JUnit xml report file name with path
-        xml-report-filename: results.xml
+        xml-report-filename: result.xml
         # GitHub Custom Action
         test-type: XUnit
   
