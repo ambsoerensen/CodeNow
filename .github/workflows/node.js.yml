@@ -97,14 +97,14 @@ jobs:
         # GitHub Custom Action
         test-type: XUnit
   
-  Deploy:
-    name: ServiceNow DevOps Change
+  DeployNormal:
+    name: ServiceNow DevOps Normal Change
     runs-on: ubuntu-latest
     environment: dev194725
     needs: ["Test","CodeQuality"]
     # needs: ["Test"]
     steps:
-      - name: ServiceNow DevOps Change
+      - name: ServiceNow DevOps Normal Change
       # You may pin to the exact commit or the version.
       # uses: ServiceNow/servicenow-devops-change@373e092812580f05105089c20129e6efe347c8e5
         uses: ServiceNow/servicenow-devops-change@v4.0.0
@@ -123,11 +123,46 @@ jobs:
           # Github Context
           context-github: ${{ toJSON(github) }}
           # Display Name of the Job
-          job-name: 'ServiceNow DevOps Change'
+          job-name: 'ServiceNow DevOps Normal Change'
           change-request: '{"attributes":{"requested_by":"a8f98bb0eb32010045e1a5115206fe3a","assignment_group":{"name": "Devops Users"},"priority": "2","comments": "This is a sample pipeline script to be added in your change step","work_notes": "Update this to work_notes","start_date": "2023-09-07 11:59:59","end_date": "2023-09-09 11:59:59"}}'
           # You can specify the requested_by attribute either with name or sys_id. Example: "requested_by":{"name": "Test User"} or "requested_by": "62826bf03710200044e0bfc8bcbe5df1"
           # You can specify the assignment_group attribute either with name or sys_id. Example: "assignment_group":{"name": "Change Approval Team"} or "assignment_group": "5f721d93c0a8010e015533746de18bf9"
           # start_date: This is the planned start date
           # end_date: This is the planned end date
-      - name: Deploy
+      - name: Deploy from Normal
+        run: echo "Deployment successfull"
+
+  DeployStandard:
+    name: ServiceNow DevOps Standard Change
+    runs-on: ubuntu-latest
+    environment: dev194725
+    needs: ["Test","CodeQuality"]
+    # needs: ["Test"]
+    steps:
+      - name: ServiceNow DevOps Standard Change
+      # You may pin to the exact commit or the version.
+      # uses: ServiceNow/servicenow-devops-change@373e092812580f05105089c20129e6efe347c8e5
+        uses: ServiceNow/servicenow-devops-change@v4.0.0
+        with:
+          # ServiceNow Instance URL
+          instance-url: ${{vars.INSTANCENAME}}
+          # Devops Integration User Name
+          devops-integration-user-name: ${{vars.USER_NAME}}
+          # Devops Integration User Password
+          devops-integration-user-password: "${{secrets.MYPS}}"
+          # Devops Integration Token
+          #devops-integration-token: # optional
+          # Orchestration Tool Id
+          tool-id: 3560923583581a50e92f9ea6feaad355
+          # Display Name of the Job
+          # Github Context
+          context-github: ${{ toJSON(github) }}
+          # Display Name of the Job
+          job-name: 'ServiceNow DevOps Standard Change'
+          change-request: '{"attributes":{"requested_by":"a8f98bb0eb32010045e1a5115206fe3a","assignment_group":{"name": "Devops Users"},"priority": "2","comments": "This is a sample pipeline script to be added in your change step","work_notes": "Update this to work_notes","start_date": "2023-09-07 11:59:59","end_date": "2023-09-09 11:59:59"}}'
+          # You can specify the requested_by attribute either with name or sys_id. Example: "requested_by":{"name": "Test User"} or "requested_by": "62826bf03710200044e0bfc8bcbe5df1"
+          # You can specify the assignment_group attribute either with name or sys_id. Example: "assignment_group":{"name": "Change Approval Team"} or "assignment_group": "5f721d93c0a8010e015533746de18bf9"
+          # start_date: This is the planned start date
+          # end_date: This is the planned end date
+      - name: Deploy from standard
         run: echo "Deployment successfull"
